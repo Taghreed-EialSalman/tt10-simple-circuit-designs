@@ -36,22 +36,36 @@ jobs:
 
       - name: GL test
         uses: TinyTapeout/tt-gds-action/gl_test@tt10
-  # ✅ ADD THIS
+
+      - name: Locate waveform files
+        if: always()
+        run: |
+          echo "=== pwd ==="
+          pwd
+          echo "=== ls test/ ==="
+          ls -la test || true
+          echo "=== find tb.* ==="
+          find . -maxdepth 6 -type f \( -name "tb.fst" -o -name "tb.vcd" -o -name "*.fst" -o -name "*.vcd" \) -print || true
+          echo "=== find results.* ==="
+          find . -maxdepth 6 -type f \( -name "results.html" -o -name "results.xml" \) -print || true
+
       - name: Upload GL waveform and report
         uses: actions/upload-artifact@v4
         if: always()
         with:
           name: gatelevel_test_artifacts
+          if-no-files-found: error
           path: |
-            test/tb.fst
-            test/tb.vcd
-            test/results.xml
-            test/results.html
+            **/tb.fst
+            **/tb.vcd
+            **/results.html
+            **/results.xml
+
   viewer:
     needs: gds
     runs-on: ubuntu-24.04
     permissions:
-      pages: write      # to deploy to Pages
-      id-token: write   # to verify the deployment originates from an appropriate source
+      pages: write
+      id-token: write
     steps:
       - uses: TinyTapeout/tt-gds-action/viewer@tt10
