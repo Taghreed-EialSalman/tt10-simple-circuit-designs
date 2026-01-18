@@ -1,20 +1,41 @@
-<!---
-
-This file is used to generate your project datasheet. Please fill in the information below and delete any unused
-sections.
-
-You can also include images in this folder and reference them in the markdown. Each image must be less than
-512 kb in size, and the combined size of all images must be less than 1 MB.
--->
-
 ## How it works
 
-Explain how your project works
+This project implements the following combinational logic function:
+
+F = (A AND B) OR (NOT C)
+
+The circuit has three inputs A, B, and C, and produces one output F.
+
+Internally:
+- Inputs A and B are ANDed together
+- Input C is inverted
+- The two results are ORed together to generate F
+
+The output F is logic 1 when:
+- both A and B are 1, or
+- C is 0
+
 
 ## How to test
 
-Explain how to use your project
+The design can be verified using the truth table below.
+
+| A | B | C | F |
+|---|---|---|---|
+| 0 | 0 | 0 | 1 |
+| 0 | 0 | 1 | 0 |
+| 0 | 1 | 0 | 1 |
+| 0 | 1 | 1 | 0 |
+| 1 | 0 | 0 | 1 |
+| 1 | 0 | 1 | 0 |
+| 1 | 1 | 0 | 1 |
+| 1 | 1 | 1 | 1 |
+
+Each input combination should be held stable for sufficient clock cycles
+(e.g., 25 clock cycles) before checking the output F.
+
+
 
 ## External hardware
 
-List external hardware used in your project (e.g. PMOD, LED display, etc), if any
+None.
